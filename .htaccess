@@ -1,0 +1,35 @@
+
+RewriteOptions inherit
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php
+
+
+RewriteCond %{HTTPS} off
+RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# RewriteCond %{REQUEST_FILENAME} -f [OR]
+# RewriteCond %{REQUEST_FILENAME} -d
+# RewriteRule ^ - [L]
+# RewriteRule ^ index.html [L]
+
+# 1 ---- Establish a custom 404 File not Found page ----
+
+SetEnv no-gzip dont-vary
+# 2 ---- Prevent directory file listing in all of your folders ----
+
+IndexIgnore *
+
+# ---- Make pages render without their extension in the url ----
+
+# Options +MultiViews
+# RewriteCond %{HTTP_HOST} ^edsofta\.com$ [OR]
+# RewriteCond %{HTTP_HOST} ^www\.edsofta\.com$
+# RewriteRule ^orders$ "https\:\/\/edsofta\.com\/order" [R=301,L]
+# RewriteCond %{HTTP_HOST} ^edsofta\.com$ [OR]
+# RewriteCond %{HTTP_HOST} ^www\.edsofta\.com$
+# RewriteRule ^orders\.html$ "https\:\/\/edsofta\.com\/order" [R=301,L]
+
